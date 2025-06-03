@@ -39,7 +39,11 @@ export default function ClientsPage() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name, email, status }), // status é string
+            body: JSON.stringify({
+                name,
+                email,
+                status: status === "active", // Converte para boolean
+            }),
         });
 
         if (res.ok) {

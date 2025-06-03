@@ -3,20 +3,25 @@ import { z } from "zod";
 import { prisma } from "../lib/prisma";
 
 export async function clientRoutes(app: FastifyInstance) {
+    // ROTA GET
     app.get("/clients", async () => {
         const clients = await prisma.client.findMany();
+
+        // CONVERSÃO PARA BOOLEANO
         const formattedClients = clients.map((client) => ({
             ...client,
-            status: client.status ? "active" : "inactive",
+            status: !!client.status, // Converte para booleano explicitamente
         }));
+
         return formattedClients;
     });
 
+    // ROTA POST
     app.post("/clients", async (request, reply) => {
         const createClientSchema = z.object({
             name: z.string(),
             email: z.string().email(),
-            status: z.union([z.literal("active"), z.literal("inactive")]),
+            status: z.boolean(), // AGORA É BOOLEANO
         });
 
         const { name, email, status } = createClientSchema.parse(request.body);
@@ -25,13 +30,14 @@ export async function clientRoutes(app: FastifyInstance) {
             data: {
                 name,
                 email,
-                status: status === "active",
+                status,
             },
         });
 
         return reply.status(201).send(client);
     });
 
+    // ROTA DELETE
     app.delete("/clients/:id", async (request, reply) => {
         const deleteClientSchema = z.object({
             id: z.coerce.number(),
