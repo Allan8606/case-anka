@@ -1,6 +1,6 @@
 # 📋 Projeto Full Stack - Cadastro de Clientes
 
-Este é um projeto full stack de cadastro de clientes, desenvolvido como parte de um desafio técnico. O sistema permite **cadastrar, listar e excluir clientes**, além de marcar seu **status como "ativo" ou "inativo"**.
+Este é um projeto full stack de cadastro de clientes, desenvolvido como parte de um desafio técnico da empresa **Anka Tech**. O sistema permite **cadastrar, listar e excluir clientes**, além de marcar seu **status como "ativo" ou "inativo"**.
 
 ---
 
